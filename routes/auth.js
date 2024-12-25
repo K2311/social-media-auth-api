@@ -15,7 +15,11 @@ router.get(
       const token = jwt.sign({ id: user.id, email: user.emails[0].value }, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
-      res.json({ token, user });
+      //res.json({ token, user });
+      res.render('dashboard', {
+        user: { id: user.id, email: user.emails[0].value, name: user.displayName },
+        token
+    });
     }
   );
 
@@ -31,7 +35,11 @@ router.get(
     const token = jwt.sign({ id: user.id, name: user.displayName }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
-    res.json({ token, user });
+    //res.json({ token, user });
+    res.render('dashboard', {
+      user: { id: user.id, email: user.emails ? user.emails[0].value : 'N/A', name: user.displayName },
+      token
+  })
   }
 );
 
